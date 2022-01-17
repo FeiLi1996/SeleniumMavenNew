@@ -31,7 +31,7 @@ public class TestDrugInteractions{
 
     }
     
-    @Test(priority=0)
+
     public void startApp(){
 
 
@@ -43,7 +43,7 @@ public class TestDrugInteractions{
     }
 
     @Test(priority=1)
-    public void goToLogin() throws InterruptedException {
+    public void goToLogin()  {
 
         driver.findElement(By.className("log_button")).click();
         String currentURL = driver.getCurrentUrl();
@@ -64,6 +64,33 @@ public class TestDrugInteractions{
         String buttonText = driver.findElement(By.className("log_button")).getText();
         Assert.assertEquals("Logout",buttonText);
         System.out.println(buttonText);
+
+    }
+    @Test(priority=3)
+    public void goToProfile() throws InterruptedException {
+
+        driver.findElement(By.linkText("User Profile")).click();
+        String currentUrl=driver.getCurrentUrl();
+        Assert.assertTrue(currentUrl.contains("userprofile"));
+        System.out.println(currentUrl);
+        Thread.sleep(3000);
+        System.out.println("Profile Page");
+
+    }
+
+    @Test(priority=4)
+    public void editProfile() throws InterruptedException {
+
+        driver.findElement(By.className("edit_profile_modal_button")).click();
+        driver.findElement(By.xpath("//*/form/div[1]/input")).sendKeys("hello");
+        driver.findElement(By.xpath("//*/form/div[2]/input")).sendKeys("hello1");
+        driver.findElement(By.xpath("//*/form/div[3]/input")).sendKeys("hello2");
+        driver.findElement(By.xpath("//*/form/div[4]/input")).sendKeys("12345");
+
+
+
+        driver.findElement(By.className("modal_button")).click();
+        Thread.sleep(3000);
 
     }
 
