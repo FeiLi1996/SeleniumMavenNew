@@ -2,6 +2,7 @@ package day1;
 
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.Assert;
@@ -31,7 +32,7 @@ public class TestDrugInteractions{
 
     }
     
-
+    @Test
     public void startApp(){
 
 
@@ -82,15 +83,44 @@ public class TestDrugInteractions{
     public void editProfile() throws InterruptedException {
 
         driver.findElement(By.className("edit_profile_modal_button")).click();
-        driver.findElement(By.xpath("//*/form/div[1]/input")).sendKeys("hello");
+
+        driver.findElement(By.xpath("//*/form/div[1]/input")).sendKeys("hello3");
         driver.findElement(By.xpath("//*/form/div[2]/input")).sendKeys("hello1");
         driver.findElement(By.xpath("//*/form/div[3]/input")).sendKeys("hello2");
         driver.findElement(By.xpath("//*/form/div[4]/input")).sendKeys("12345");
+//        driver.findElement(By.id("drug-search")).sendKeys("aspirin");
+//        driver.findElement(By.xpath("//*[text()='+']")).click();
+//        driver.findElement(By.id("drug-search")).sendKeys("ibuprofen");
+//        driver.findElement(By.xpath("//*[text()='+']")).click();
+//        driver.findElement(By.className("drug_modal_action")).click();
+//        Thread.sleep(2000);
+//        driver.findElement(By.id("drug-search")).sendKeys("ibuprofen");
+//        driver.findElement(By.className("drug_modal_action")).click();
 
-
-
+        Thread.sleep(3000);
         driver.findElement(By.className("modal_button")).click();
         Thread.sleep(3000);
+
+    }
+    @Test(priority=5)
+    public void goToCheckInteraction() throws InterruptedException {
+
+        driver.findElement(By.linkText("Check Interactions")).click();
+        String currentUrl=driver.getCurrentUrl();
+        Assert.assertTrue(currentUrl.contains("checkinteractions"));
+        System.out.println(currentUrl);
+        Thread.sleep(3000);
+        System.out.println("Check Interaction Page");
+
+    }
+    @Test(priority=6)
+    public void checkInteraction() throws InterruptedException {
+
+        JavascriptExecutor j = (JavascriptExecutor) driver;
+        driver.findElement(By.className("interacton_button")).click();
+        Thread.sleep(5000);
+        j.executeScript("window.scrollBy(0,1000)");
+        Thread.sleep(5000);
 
     }
 
