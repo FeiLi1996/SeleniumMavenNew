@@ -11,6 +11,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
+import java.util.Locale;
 
 
 public class TestDrugInteractions{
@@ -119,6 +120,10 @@ public class TestDrugInteractions{
         driver.findElement(By.className("interacton_button")).click();
         Thread.sleep(5000);
         j.executeScript("window.scrollBy(0,1000)");
+
+        String interactionDescription = driver.findElement(By.className("interaction_description_header")).getText().toLowerCase();
+        System.out.println(interactionDescription);
+        Assert.assertTrue(interactionDescription.contains("aspirin") &&  interactionDescription.contains("ibuprofen"));
         Thread.sleep(5000);
 
     }
