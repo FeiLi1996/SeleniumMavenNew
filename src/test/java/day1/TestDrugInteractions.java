@@ -1,17 +1,17 @@
 package day1;
 
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
+import org.apache.commons.io.FileUtils;
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
-import java.util.Locale;
+
 
 
 public class TestDrugInteractions{
@@ -114,7 +114,7 @@ public class TestDrugInteractions{
 
     }
     @Test(priority=6)
-    public void checkInteraction() throws InterruptedException {
+    public void checkInteraction() throws InterruptedException, IOException {
 
         JavascriptExecutor j = (JavascriptExecutor) driver;
         driver.findElement(By.className("interacton_button")).click();
@@ -125,6 +125,9 @@ public class TestDrugInteractions{
         System.out.println(interactionDescription);
         Assert.assertTrue(interactionDescription.contains("aspirin") &&  interactionDescription.contains("ibuprofen"));
         Thread.sleep(5000);
+        File file = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(file,new File("C:\\Users\\jonly\\IdeaProjects\\SeleniumMavenNew\\src\\test\\java\\screenshots\\"
+            + "interactionImage" + ".jpg"));
 
     }
 
