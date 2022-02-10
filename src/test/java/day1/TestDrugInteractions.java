@@ -22,7 +22,7 @@ public class TestDrugInteractions{
     String username = "test1";
     String password = "test1";
     String drug1 = "aspirin";
-    String drug2 = "ibuprofen";
+    String drug2 = "atorvastatin";
 
 
     By logInButton = By.className("button-7");
@@ -122,7 +122,7 @@ public class TestDrugInteractions{
         System.out.println("Check Interaction Page");
 
     }
-    @Test(priority=6)
+    @Test(priority=6,enabled = false)
     public void checkPositiveInteraction() throws InterruptedException, IOException {
 
         JavascriptExecutor j = (JavascriptExecutor) driver;
@@ -137,6 +137,26 @@ public class TestDrugInteractions{
         File file = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
         FileUtils.copyFile(file,new File("C:\\Users\\jonly\\IdeaProjects\\SeleniumMavenNew\\src\\test\\java\\screenshots\\"
             + "interactionImage" + ".jpg"));
+
+    }
+    @Test(priority=6)
+    public void checkNegativeInteraction() throws InterruptedException, IOException {
+
+        JavascriptExecutor j = (JavascriptExecutor) driver;
+        driver.findElement(By.className("interacton_button")).click();
+        Thread.sleep(5000);
+        j.executeScript("window.scrollBy(0,1000)");
+
+        //String interactionDescription = driver.findElement(By.className("interaction_description_header")).getText().toLowerCase();
+
+        File file = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+        FileUtils.copyFile(file,new File("C:\\Users\\jonly\\IdeaProjects\\SeleniumMavenNew\\src\\test\\java\\screenshots\\"
+                + "interactionImage" + ".jpg"));
+        //Assert.assertFalse(interactionDescription.contains(drug1) &&  interactionDescription.contains(drug2));
+        String errorMsg = driver.findElement(By.className("error_message")).getText();
+        Assert.assertTrue(errorMsg.contains("No interactions"));
+        Thread.sleep(5000);
+
 
     }
 
